@@ -18,7 +18,13 @@ const favicon = require("serve-favicon");
 const path = require("path");
 
 // Middleware configuration
-module.exports = (app) => {
+module.exports = (app) => { 
+  const myMidldleware = (req, res, next) => {   //!!!!!! adicionei isto aqui a partir do const 
+    console.log('My middleware running');
+    req.ironhacker = 'Lucia';
+    next();
+  };  
+
   // In development environment the app logs
   app.use(logger("dev"));
 
