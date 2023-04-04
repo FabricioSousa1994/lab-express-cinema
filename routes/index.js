@@ -1,34 +1,33 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 
-const Movie = require('../models/Movie.model');
+const Movie = require("../models/Movie.model");
 
 /*GET home page*/
 
-router.get('/movies',  async (req, res, next) => {
-    try {
-        const allMovies = await Movie.find();
-        res.render('movies', {movies: allMovies})
-    } catch(error) {
-        //calling the error middleware
-        next(error)
-    }
+router.get("/movies", async (req, res, next) => {
+  try {
+    const allMovies = await Movie.find();
+    res.render("movies", { movies: allMovies });
+  } catch (error) {
+    //calling the error middleware
+    next(error);
+  }
 });
 
-router.get('/', (req, res, next) => {
-    res.render("index")
-})
+router.get("/", (req, res, next) => {
+  res.render("index");
+});
 
+router.get("movies/:Id", async (req, res, next) => {
+  try {
+    const { Id } = req.params;
 
-router.get('movies/:Id', async (req, res, next) => {
-    try {
-        const {Id} = req.params;
-
-        const movie = await Movie.findById(Id);
-        res.render('movie-details', movie);
-    } catch(error) {
-        next(error)
-    }
+    const movie = await Movie.findById(Id);
+    res.render("movie-details", movie);
+  } catch (error) {
+    next(error);
+  }
 });
 
 /*router.get("/movies/:id", (req, res, next) => {
@@ -44,6 +43,5 @@ router.get('movies/:Id', async (req, res, next) => {
         next(error);
       });
   });*/
-
 
 module.exports = router;
